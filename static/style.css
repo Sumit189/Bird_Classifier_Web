@@ -1,0 +1,114 @@
+body {
+  font-family: Inconsolata, sans-serif;
+  font-size: 18px;
+  margin: 0;
+}
+
+.header {
+  margin: 30px;
+}
+
+.header__title {
+  display: inline-block;
+  font-weight: bold;
+  margin-right: 20px;
+}
+
+.header__tagline {
+  display: inline-block;
+}
+
+.keys {
+  bottom: 20px;
+  position: absolute;
+  right: 20px;
+}
+
+@media all and (max-width: 600px) {
+  .keys {
+    display: none;
+  }
+}
+
+.container2 {
+  align-items: center;
+  display: flex;
+  margin: 2% auto;
+  max-width: 960px;
+  width: 100%;
+}
+
+@media all and (max-width: 600px) {
+  .container2 {
+    flex-direction: column;
+  }
+}
+
+.birds {
+  flex-shrink: 1;
+  height: auto;
+  max-width: 600px;
+  width: 100%;
+}
+
+.birds circle {
+  fill: #e0e0e0;
+  pointer-events: none;
+}
+
+.birds path {
+  pointer-events: none;
+}
+
+.bird-text {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  line-height: 1.44;
+  padding: 0 20px;
+  width: 320px;
+}
+
+@media all and (max-width: 768px) {
+  .bird-text {
+    max-width: 600px;
+    width: 100%;
+    padding: 20px;
+  }
+}
+
+.bird-text__title {
+  font-size: 50px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+@media all and (max-width: 768px) {
+  .bird-text__title {
+    font-size: 32px;
+  }
+}
+
+.box {
+  fill: #fff;
+  cursor: pointer;
+}
+
+.box:hover {
+  fill: #f2f2f2;
+}
+.file-select-button{background:#dce4ec;
+                  display: table;
+                   margin: 0 auto;
+                  height:40px;
+                  width: 140px;
+                  border-radius: 0.5em;
+                  cursor: pointer;
+                  border: 2px solid #34495e;
+                  color: #34495e;
+                  text-align: center;
+                  line-height:40px;}
+.file-select-button:hover{
+  background: #34495e;
+  color:#fff;
+  border-color: #fff;
+}

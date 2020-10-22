@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" href="static/favicon.ico" type="image/x-icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Bird Classifier</title>
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Inconsolata'><link rel="stylesheet" href="static/start.css">
+    <link rel="stylesheet" href="static/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cabin:700">
+    <link rel="stylesheet" href="static/assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="static/assets/css/untitled.css">
+</head>
+<body onload="goTo(0)" style="background: #fff; color:#000">
+
+    <nav class="navbar navbar-light navbar-expand-md navbar navbar-expand-lg fixed-top" id="mainNav" style="background-color: #e3eeee; height: 60px">
+        <div class="container"><a class="navbar-brand js-scroll-trigger" onclick="window.open('/','_self')" style="color: black;">Bird Classifier</a><button data-toggle="collapse" class="navbar-toggler navbar-toggler-right" data-target="#navbarResponsive" type="button" aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation" value="Menu"><i class="fa fa-bars"></i></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item nav-link js-scroll-trigger"><a class="nav-link active js-scroll-trigger" onclick="window.open('/about','_self')"  style="color: black; cursor: pointer">About</a></li>
+                    <li class="nav-item nav-link js-scroll-trigger"><a class="nav-link js-scroll-trigger" onclick="window.open('/about#download','_self')"  style="color: black; cursor: pointer">Source-Code</a></li>
+                    <li class="nav-item nav-link js-scroll-trigger"><a class="nav-link js-scroll-trigger" onclick="window.open('/about#contact','_self')" style="color: black; cursor: pointer">contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <script src="static/assets/js/jquery.min.js"></script>
+    <script src="static/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="static/assets/js/grayscale.js"></script>
+
+<br>
+<br>
+<div class="container2" style="margin-top: 5%">
+  <svg xmlns="http://www.w3.org/2000/svg" width="600" height="500" viewBox="0 0 600 500" preserveAspectRatio="xMinYMin" class="birds">
+  </svg>
+  <div class="bird-text">
+    <div class="bird-text__title"></div>
+    <div class="bird-text__body"></div>
+  </div>
+</div>
+<form id="myForm" action="http://localhost:5000/" method="Post" enctype="multipart/form-data">
+  <div class="file-upload">
+    <div class="file-select">
+      <div class="file-select-button" id="fileName">Choose File</div>
+      <div class="file-select-name" id="noFile">No file chosen...</div>
+      <input type="file" accept=".mp3" name="chooseFile" id="chooseFile" onchange="do_submit()">
+    </div>
+  </div>
+   </form>
+    <div id="wait_screen" style="display: none">
+            <p id="loading" style="width: 100vw; text-align: center">Loading.</p>
+    </div>
+<!-- partial -->
+<script>
+    var count;
+    var interval;
+    function do_submit(){
+   document.getElementById("myForm").style.display="none";
+   document.getElementById("wait_screen").style.display="block";
+    document.getElementById("myForm").submit();
+    count=1;
+    two_dots();
+    }
+    function two_dots(){
+        clearInterval(interval);
+        if(count==3){
+            count=1;
+            document.getElementById('loading').innerText='Loading.';
+        }
+        else{
+            document.getElementById('loading').innerText+='.';
+            count=count+1;
+        }
+        interval=setInterval(two_dots,1000);
+
+    }
+</script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js'></script><script  src="static/start.js"></script>
+</body>
+</html>
