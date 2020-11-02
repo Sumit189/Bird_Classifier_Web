@@ -39,6 +39,11 @@ def hello_world():
 def predictor():
     if request.method == 'POST':
         audio = request.files['chooseFile']
+        validate = secure_filename(audio.filename).split('.')
+        validate_ = lower(validate[-1])
+        if validate_!="wav":
+          return render_template("404.html")
+        
         basepath = os.path.dirname(__file__)
         file_path = os.path.join(
             basepath, "uploads", secure_filename(audio.filename)
