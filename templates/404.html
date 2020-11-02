@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Bird Classifier Error</title>
+  <link rel="shortcut icon" href="static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="static/404style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div id="container">
+  <div id="error-box">
+    <div class="dot"></div>
+    <div class="dot two"></div>
+    <div class="face2">
+      <div class="eye"></div>
+      <div class="eye right"></div>
+      <div class="mouth sad"></div>
+    </div>
+    <div class="shadow move"></div>
+    <div class="message"><h1 class="alert">Error!</h1><p style="color:#fff; font-size: 12px">Not enough Confident</div>
+    <button class="button-box"><h1 class="red" onclick="gohome()">Try Again</h1></button>
+  </div>
+</div>
+</body>
+<script>
+  function gohome(){
+    window.open("/","_self");
+  }
+</script>
+</html>
