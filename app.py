@@ -42,7 +42,7 @@ def predictor():
         validate = secure_filename(audio.filename).split('.')
         validate_ = validate[-1].lower()
         if validate_!="wav":
-          return render_template("404.html")
+          return render_template("404.html", Custom_error="Only wav files are supported...)
         
         basepath = os.path.dirname(__file__)
         file_path = os.path.join(
@@ -77,7 +77,7 @@ def predictor():
         if confidence>96:
             return render_template("index.html", result=y_pred, confidence=confidence)
         else:
-             return render_template("404.html")
+             return render_template("404.html", Custom_error="Not Confident Enough...")
 
 def prediction(audioloc):
   y_pred=[]
