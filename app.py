@@ -42,7 +42,7 @@ def predictor():
         validate = secure_filename(audio.filename).split('.')
         validate_ = validate[-1].lower()
         if validate_!="wav":
-          return render_template("404.html", Custom_error="Only wav files are supported...)
+          return render_template("404.html", Custom_error="Only wav files are supported...")
         
         basepath = os.path.dirname(__file__)
         file_path = os.path.join(
