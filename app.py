@@ -5,22 +5,15 @@ import pandas as pd
 import numpy as np
 import librosa
 from scipy.io import wavfile
-import tensorflow.compat.v1 as tf
-tf.disable_v2_behavior()
+import tensorflow as tf
 from pydub import AudioSegment
-AudioSegment.converter = "C:\\ffmpeg\\bin\\ffmpeg.exe"
-AudioSegment.ffmpeg = "C:\\ffmpeg\\bin\\ffmpeg.exe"
-AudioSegment.ffprobe ="C:\\ffmpeg\\bin\\ffprobe.exe"
 from python_speech_features import mfcc
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 MODEL_PATH = 'model/species.h5'
-session = tf.Session(graph=tf.Graph())
-with session.graph.as_default():
-    tf.keras.backend.set_session(session)
-    model = tf.keras.models.load_model(MODEL_PATH)
+model = tf.keras.models.load_model(MODEL_PATH)
 print("Model Loaded")
 
 def envelope(y,rate, threshold):
@@ -79,7 +72,7 @@ def predictor():
         if confidence>96:
             return render_template("index.html", result=y_pred, confidence=confidence)
         else:
-            return "Not confident enough"
+             return render_template("404.html")
 
 def prediction(audioloc):
   y_pred=[]
@@ -90,10 +83,8 @@ def prediction(audioloc):
     x = mfcc(sample, rate, numcep=13, nfilt=26, nfft=512)
     x = (x- (-100.49625436527774))/(107.55423014451932 - (-100.49625436527774))
     x = x.reshape(1, x.shape[0], x.shape[1],1 )
-    with session.graph.as_default():
-        tf.keras.backend.set_session(session)
-        y_hat = model.predict(x)
-        y_pred.append(y_hat)
+    y_hat = model.predict(x)
+    y_pred.append(y_hat)
   return y_pred
 
 @app.route('/about', methods=['GET', 'POST'])
