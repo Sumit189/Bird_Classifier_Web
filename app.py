@@ -40,7 +40,7 @@ def predictor():
     if request.method == 'POST':
         audio = request.files['chooseFile']
         validate = secure_filename(audio.filename).split('.')
-        validate_ = lower(validate[-1])
+        validate_ = validate[-1].lower()
         if validate_!="wav":
           return render_template("404.html")
         
