@@ -88,7 +88,7 @@ var birds = [
 var ts = [];
 
 var birdTexts = [
-  "<b>Bird Classifier</b> can classify audio of <b><i>Dove, Asian Koel amd Owl</i></b>.<br/> Only <b>wav</b> file is supported"
+  "<b>Bird Classifier</b> can classify audio of <b><i>Dove, Asian Koel and Owl</i></b>.<br/> Only <b>wav</b> file is supported"
 ];
 
 var birdTitles = ["Bird Classifier"];
