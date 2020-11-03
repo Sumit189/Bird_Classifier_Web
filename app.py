@@ -74,10 +74,7 @@ def predictor():
         y_pred=(y_pred)%3
         print(y_pred)
         print("Done")
-        if confidence>96:
-            return render_template("index.html", result=y_pred, confidence=confidence)
-        else:
-             return render_template("404.html", Custom_error="Not Confident Enough...")
+        return render_template("index.html", result=y_pred, confidence=confidence)
 
 def prediction(audioloc):
   y_pred=[]
