@@ -6,7 +6,6 @@ import numpy as np
 import librosa
 from scipy.io import wavfile
 import tensorflow as tf
-from pydub import AudioSegment
 from python_speech_features import mfcc
 from werkzeug.utils import secure_filename
 
@@ -51,14 +50,6 @@ def predictor():
         print(file_path)
         audio.save(file_path)
         file_name = secure_filename(audio.filename).split('.')
-#         src = file_path
-#         dst = 'uploads/'+file_name[0] + ".wav"
-#         sound = AudioSegment.from_mp3(src)
-#         sound.export(dst, format="wav")
-#         os.remove(file_path)
-#         file_path = os.path.join(
-#             basepath, "uploads", file_name[0] + ".wav"
-#         )
         signal, rate = librosa.load( file_path, sr=16000)
         mask = envelope(signal, rate, 0.0005)
         wavfile.write(filename='clean/' + file_name[0] + ".wav", rate=rate, data=signal[mask])
