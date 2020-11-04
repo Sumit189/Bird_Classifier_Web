@@ -27,7 +27,6 @@ p {
 .bar {
   background: #191919;
   height: 36px;
-  border-radius: 0.5rem 0.5rem 0 0;
 }
 
 .btn_, .btn_::before, .btn_::after {
