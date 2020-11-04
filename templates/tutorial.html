@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="static/favicon.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Tutorial</title>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Inconsolata'>
+    <link rel="stylesheet" href="static/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cabin:700">
+    <link rel="stylesheet" href="static/assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="static/assets/css/untitled.css">
+    <link rel="stylesheet" href="static/tutorial.css">
+</head>
+<body style="background: #fff;">
+    <nav class="navbar navbar-light navbar-expand-md navbar navbar-expand-lg fixed-top" id="mainNav" style="background-color: #e3eeee; height: 60px">
+        <div class="container"><a class="navbar-brand js-scroll-trigger" onclick="window.open('/','_self')" style="color: black;">Bird Classifier</a><button data-toggle="collapse" class="navbar-toggler navbar-toggler-right" data-target="#navbarResponsive" type="button" aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation" value="Menu"><i class="fa fa-bars"></i></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item nav-link js-scroll-trigger"><a class="nav-link js-scroll-trigger" onclick="window.open('/tutorial','_self')" style="color: black; cursor: pointer">Tutorial</a></li>
+                    <li class="nav-item nav-link js-scroll-trigger"><a class="nav-link active js-scroll-trigger" onclick="window.open('/about','_self')"  style="color: black; cursor: pointer">About</a></li>
+                    <li class="nav-item nav-link js-scroll-trigger"><a class="nav-link js-scroll-trigger" onclick="window.open('/about#download','_self')"  style="color: black; cursor: pointer">Source-Code</a></li>
+                    <li class="nav-item nav-link js-scroll-trigger"><a class="nav-link js-scroll-trigger" onclick="window.open('/about#contact','_self')" style="color: black; cursor: pointer">contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <script src="static/assets/js/jquery.min.js"></script>
+    <script src="static/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="static/assets/js/grayscale.js"></script>
+    <a id="dnwld" href="static/species.h5" download="species.h5"> </a>
+    <center><button id="button_" onclick="document.getElementById('dnwld').click()">Download Model</button></center>
+<div class="window_">
+  <div class="bar">
+    <div class="btn_"></div>
+  </div>
+
+  <div class="body_" style="overflow: hidden">
+  <pre>
+      <div class="comment_"># copy the code below:</div>
+          <span class="command_" style="color:#32c146;">
+!pip install python_speech_features
+import tensorflow as tf
+import tensorflow.keras
+import numpy as np
+import pandas as pd
+import os
+import librosa
+from scipy.io import wavfile
+from python_speech_features import mfcc
+
+
+#change model path
+MODEL_PATH = 'species.h5'
+model = tf.keras.models.load_model(MODEL_PATH)
+print("Model Loaded")
+
+#add function to remove low strength signals
+def envelope(y,rate, threshold):
+  mask=[]
+  y = pd.Series(y).apply(np.abs)
+  y_mean=y.rolling(window=int(rate/10), min_periods=1, center=True).mean()
+  for mean in y_mean:
+    if mean>threshold:
+      mask.append(True)
+    else:
+      mask.append(False)
+  return mask
+
+#add function to make predictions
+def prediction(audioloc):
+  y_pred=[]
+  print("Extracting audio features")
+  rate,wav = wavfile.read(audioloc)
+  for i in range(0,wav.shape[0]-1600, 1600):
+    sample = wav[i:i+1600]
+    x = mfcc(sample, rate, numcep=13, nfilt=26, nfft=512)
+    x = (x- (-100.49625436527774))/(107.55423014451932 - (-100.49625436527774))
+    x = x.reshape(1, x.shape[0], x.shape[1],1 )
+    y_hat = model.predict(x)
+    y_pred.append(y_hat)
+  return y_pred
+
+#filename
+file_name = 'filename.wav'
+
+#load the audio file
+signal, rate = librosa.load( file_name, sr=16000)
+mask = envelope(signal, rate, 0.0005)
+os.remove(file_name)
+wavfile.write(filename=file_name, rate=rate, data=signal[mask])
+y_pred=prediction(file_name)
+
+#merge all arrays into one
+flat_pred = []
+for i in y_pred:
+    for j in i:
+        flat_pred.extend(j)
+
+#find maximum probability
+y_pred = np.argmax(y_pred)
+
+#take modulus the probability
+#0: Dove, 1: Koel, 2: Owl
+y_pred=(y_pred)%3
+labels=['Dove','Koel','Owl']
+print(labels[y_pred])
+          </span>
+  </pre>
+
+  </div>
+</div>
+
+</body>
+</html>
