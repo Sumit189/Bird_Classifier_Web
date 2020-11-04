@@ -93,5 +93,9 @@ def prediction(audioloc):
 def open_about():
     return render_template('about.html')
 
+@app.route('/tutorial', methods=['GET', 'POST'])
+def open_tutorial():
+    return render_template('tutorial.html')
+  
 if __name__ == '__main__':
     app.run(debug=True)
