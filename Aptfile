@@ -1,2 +1,1 @@
-build-essential libssl-dev libffi-dev python-dev
-cryptography
+libasound2-dev python-dev python-numpy python-setuptools libsndfile-dev
